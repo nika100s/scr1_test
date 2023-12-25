@@ -121,9 +121,13 @@ build_verilator_wf: $(sv_list)
 	-D$(SIM_CFG_DEF) \
 	-CFLAGS -DVCD_TRACE -CFLAGS -DTRACE_LVLV=20 \
 	-CFLAGS -DVCD_FNAME=simx.vcd \
+	-CFLAGS -DCOVERAGE -CFLAGS -DCOVERAGE_FNAME=simx.dat \
+	-CFLAGS -DVL_DEBUG \
 	--clk clk \
 	--exe $(scr1_wrapper) \
 	--trace \
+	--coverage-toggle \
+	--trace-coverage \
 	--trace-params \
     --trace-structs \
     --trace-underscore \

@@ -48,9 +48,6 @@ int main(int argc, char** argv) {
 #endif // #ifdef VCD_TRACE
     }
     top->final();
-#ifdef VM_COVERAGE                              //  ЕСЛИ ЗАРОБИТ
-        VerilatedCov::write("coverage.dat");  
-#endif // #ifdef VM_COVERAGE                        ТО ЖЕСТЬ
 #ifdef VCD_TRACE
     tfp->close();
 #endif // #ifdef VCD_TRACE
