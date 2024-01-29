@@ -24,7 +24,8 @@ export verilator_ver ?= $(shell  expr `verilator --version | cut -f2 -d' '`)
 export verilator_ver_5x ?= $(shell  expr `verilator --version | cut -f2 -d' '` \>= 5)
 
 ifeq "$(verilator_ver_5x)" "1"
-    VERILATOR_5X_OPTS ?= --no-timing # conservative way
+    # VERILATOR_5X_OPTS ?= --no-timing # conservative way
+	VERILATOR_5X_OPTS ?=
 endif
 
 
@@ -92,13 +93,20 @@ build_verilator: $(sv_list)
 	-sv \
 	+1800-2017ext+sv \
 	-Wno-fatal \
+	-Wno-UNOPTFLAT \
 	$(VERILATOR_5X_OPTS) \
 	--top-module $(top_module) \
 	-DSCR1_TRGT_SIMULATION \
+	--prof-cfuncs \
+	-CFLAGS -DVL_DEBUG \
 	-D$(SIM_TRACE_DEF) \
 	-D$(SIM_CFG_DEF) \
+	-CFLAGS -DCOVERAGE -CFLAGS -DCOVERAGE_FNAME=simx.dat \
 	--clk clk \
 	--exe $(scr1_wrapper) \
+	--trace \
+	--coverage \
+	--trace-coverage \
 	--Mdir $(bld_dir)/verilator \
 	-I$(rtl_inc_dir) \
 	-I$(rtl_inc_tb_dir) \

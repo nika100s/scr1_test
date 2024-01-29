@@ -50,6 +50,9 @@ int main(int argc, char** argv) {
 #ifdef VCD_TRACE
     tfp->close();
 #endif // #ifdef VCD_TRACE
+#ifdef VM_COVERAGE                              
+    VerilatedCov::write("coverage.dat");  
+#endif 
     delete top;
 }
 

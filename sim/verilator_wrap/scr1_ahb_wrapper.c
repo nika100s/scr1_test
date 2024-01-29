@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <verilated.h>
+
 #include "Vscr1_top_tb_ahb.h"
 #ifdef VCD_TRACE
 #include "verilated_vcd_c.h"
@@ -48,12 +49,12 @@ int main(int argc, char** argv) {
 #endif // #ifdef VCD_TRACE
     }
     top->final();
-#ifdef VM_COVERAGE                              //  ЕСЛИ ЗАРОБИТ
-        VerilatedCov::write("coverage.dat");  
-#endif // #ifdef VM_COVERAGE                        ТО ЖЕСТЬ
 #ifdef VCD_TRACE
     tfp->close();
 #endif // #ifdef VCD_TRACE
+#ifdef VM_COVERAGE                              
+    VerilatedCov::write("coverage.dat");  
+#endif 
     delete top;
 }
 
